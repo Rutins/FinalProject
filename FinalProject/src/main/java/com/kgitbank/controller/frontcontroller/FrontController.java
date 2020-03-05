@@ -1,9 +1,9 @@
 package com.kgitbank.controller.frontcontroller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
@@ -34,9 +34,24 @@ public class FrontController {
 	
 	
 	@RequestMapping(value = "/getAPIRoadName", method = RequestMethod.POST)
-	public ArrayList<String> APIRoadName(FrontVO vo, Model model) throws IOException, ParseException {
+	public String APIRoadName(HttpServletRequest req, Model model) throws IOException, ParseException {
 		
-		return frontService.APIRoadName(vo);
+		FrontVO vo = new FrontVO();
+		vo.setRoadKnd((String) req.getAttribute("roadKind"));
+		model.addAttribute("APIRoadName",frontService.APIRoadName(vo));
+		
+		return "RoadName";
+		
+	}
+	
+	@RequestMapping(value = "/getAPIRestName", method = RequestMethod.POST)
+	public String APIRestName(HttpServletRequest req, Model model) throws IOException, ParseException {
+		
+		FrontVO vo = new FrontVO();
+		vo.setRoadRouteNm((String) req.getAttribute("roadName"));
+		model.addAttribute("APIRestName",frontService.APIRestName(vo));
+		
+		return "RestName";
 		
 	}
 	

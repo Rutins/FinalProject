@@ -25,5 +25,11 @@ public class FrontServiceImpl implements FrontService {
 		// TODO Auto-generated method stub
 		return frontDAO.APIRoadName(vo);
 	}
+
+	@Override
+	public ArrayList<String> APIRestName(FrontVO vo) throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		return frontDAO.APIRestName(vo);
+	}
 	
 }

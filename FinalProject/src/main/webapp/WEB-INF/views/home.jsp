@@ -5,37 +5,37 @@
 
 <html>
 <head>
-	
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$("#roadKnd").on(click, function(event){
-	event.preventDefault();
-	let FrontVO = $(this).serialize();
-	$.ajax({
-		url: "/controller/getAPIRoadName",
-		type: "POST",
-		dataType: "text",
-		data: FrontVO,
-		success: function(roadName){
-			$("#aa").load("/WEB-INF/views/aa.jsp #aa", function(){
-				
-			})
-		}
+$(document).ready(function(){
+	$('select#roadKnd').change(function(){
+		$('#roadName').load("getAPIRoadName", {'roadKnd' : $("select#roadKnd").val()},function(){
+			$(this).show();
+		});
+		return false;
+	});
+});
 
-	})
-
+$(document).ready(function(){
+	$('select#roadName').change(function(){
+		$('#restName').load("getAPIRestName", {'roadName' : $("select#roadName").val()},function(){
+			$(this).show();
+		});
+		return false;
+	});
 });
 </script>
 </head>
 <body>
 <div>
 <form action="">
-<select name="roadKnd">
+<select name="roadKnd" id="roadKnd">
 	<c:forEach var="kind" items="${APIRoadKind}">
-		<option id="roadKnd"><c:out value="${kind}"/></option>
+		<option value=""><c:out value="${kind}"/></option>
 	</c:forEach>	
 </select>
-<span id="aa"></span>
-<span id="aa2"></span>
+<span id="roadName"></span>
+<span id="restName"></span>
 </form>
 </div>
 

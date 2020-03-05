@@ -31,7 +31,7 @@ $(document).ready(function(){
 <form action="">
 <select name="roadKnd" id="roadKnd">
 	<c:forEach var="kind" items="${APIRoadKind}">
-		<option value=""><c:out value="${kind}"/></option>
+		<option value="<c:out value="${kind}"/>"><c:out value="${kind}"/></option>
 	</c:forEach>	
 </select>
 <span id="roadName"></span>

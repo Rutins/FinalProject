@@ -8,8 +8,8 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('select#roadKnd').change(function(){
-		$('#roadName').load("getAPIRoadName", {'roadKnd' : $("select#roadKnd").val()},function(){
+	$('select#roadKind').change(function(){
+		$('#roadName').load("getAPIRoadName", {'roadKind' : $("select#roadKind").val()},function(){
 			$(this).show();
 		});
 		return false;
@@ -29,13 +29,13 @@ $(document).ready(function(){
 <body>
 <div>
 <form action="">
-<select name="roadKnd" id="roadKnd">
+<select name="roadKind" id="roadKind">
 	<c:forEach var="kind" items="${APIRoadKind}">
 		<option value="<c:out value="${kind}"/>"><c:out value="${kind}"/></option>
 	</c:forEach>	
 </select>
-<span id="roadName"></span>
-<span id="restName"></span>
+<select id="roadName" style="display:none"></select>
+<select id="restName" style="display:none"></select>
 </form>
 </div>
 

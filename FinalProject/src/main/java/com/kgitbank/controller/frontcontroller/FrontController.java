@@ -37,7 +37,7 @@ public class FrontController {
 	public String APIRoadName(HttpServletRequest req, Model model) throws IOException, ParseException {
 		
 		FrontVO vo = new FrontVO();
-		vo.setRoadKnd((String) req.getAttribute("roadKind"));
+		vo.setRoadKnd((String) req.getParameter("roadKind"));
 		model.addAttribute("APIRoadName",frontService.APIRoadName(vo));
 		
 		return "RoadName";
@@ -48,7 +48,7 @@ public class FrontController {
 	public String APIRestName(HttpServletRequest req, Model model) throws IOException, ParseException {
 		
 		FrontVO vo = new FrontVO();
-		vo.setRoadRouteNm((String) req.getAttribute("roadName"));
+		vo.setRoadRouteNm((String) req.getParameter("roadName"));
 		model.addAttribute("APIRestName",frontService.APIRestName(vo));
 		
 		return "RestName";

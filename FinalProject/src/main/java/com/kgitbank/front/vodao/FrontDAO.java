@@ -22,7 +22,7 @@ public class FrontDAO {
 		StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/restarea-std?serviceKey="+skey); /*URL*/
         
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("250", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
 	    
         
@@ -72,7 +72,7 @@ public class FrontDAO {
 		StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/restarea-std?serviceKey="+skey); /*URL*/
         
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("250", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
         urlBuilder.append("&" + URLEncoder.encode("roadKnd","UTF-8") + "=" + URLEncoder.encode(vo.getRoadKnd(), "UTF-8"));
 	    
@@ -120,7 +120,7 @@ public class FrontDAO {
 		StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/restarea-std?serviceKey="+skey); /*URL*/
         
         urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+        urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("250", "UTF-8")); /*한 페이지 결과 수*/
         urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
         urlBuilder.append("&" + URLEncoder.encode("roadRouteNm","UTF-8") + "=" + URLEncoder.encode(vo.getRoadRouteNm(), "UTF-8"));
 	    
@@ -168,20 +168,20 @@ public class FrontDAO {
 		StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/restarea-std?serviceKey="+skey); /*URL*/
         if(vo.getRoadRouteNm().equals("")) {
         	urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("250", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
             urlBuilder.append("&" + URLEncoder.encode("roadKnd","UTF-8") + "=" + URLEncoder.encode(vo.getRoadKnd(), "UTF-8"));
             
         }else if(vo.getEntrpsNm().equals("")) {
         	urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("250", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
             urlBuilder.append("&" + URLEncoder.encode("roadKnd","UTF-8") + "=" + URLEncoder.encode(vo.getRoadKnd(), "UTF-8"));
             urlBuilder.append("&" + URLEncoder.encode("roadRouteNm","UTF-8") + "=" + URLEncoder.encode(vo.getRoadRouteNm(), "UTF-8"));
         
         }else {
         	urlBuilder.append("&" + URLEncoder.encode("pageNo","UTF-8") + "=" + URLEncoder.encode("1", "UTF-8")); /*페이지 번호*/
-            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("100", "UTF-8")); /*한 페이지 결과 수*/
+            urlBuilder.append("&" + URLEncoder.encode("numOfRows","UTF-8") + "=" + URLEncoder.encode("250", "UTF-8")); /*한 페이지 결과 수*/
             urlBuilder.append("&" + URLEncoder.encode("type","UTF-8") + "=" + URLEncoder.encode("json", "UTF-8")); /*XML/JSON 여부*/
             urlBuilder.append("&" + URLEncoder.encode("roadKnd","UTF-8") + "=" + URLEncoder.encode(vo.getRoadKnd(), "UTF-8"));
             urlBuilder.append("&" + URLEncoder.encode("roadRouteNm","UTF-8") + "=" + URLEncoder.encode(vo.getRoadRouteNm(), "UTF-8"));

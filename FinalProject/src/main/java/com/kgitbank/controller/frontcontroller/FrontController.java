@@ -24,6 +24,18 @@ public class FrontController {
 	@Resource(name="frontService")
 	private FrontServiceImpl frontService;
 	
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public String main(FrontVO vo, Model model) throws IOException, ParseException {
+		
+		return "Main";
+	}
+	
+	@RequestMapping(value = "/Signup", method = RequestMethod.GET)
+	public String Signup(FrontVO vo, Model model) throws IOException, ParseException {
+		
+		return "Signup";
+	}
+	
 	@RequestMapping(value = "/getAPIRoadKind", method = RequestMethod.GET)
 	public String APIRoadKind(FrontVO vo, Model model) throws IOException, ParseException {
 		

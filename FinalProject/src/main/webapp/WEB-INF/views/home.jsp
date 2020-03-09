@@ -8,8 +8,8 @@
 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('select#roadKind').change(function(){
-		$('#roadName').load("getAPIRoadName", {'roadKind' : $("select#roadKind").val()},function(){
+	$('select#roadKnd').change(function(){
+		$('#roadRouteNm').load("getAPIRoadName", {'roadKind' : $("select#roadKnd").val()},function(){
 			$(this).show();
 		});
 		return false;
@@ -17,8 +17,8 @@ $(document).ready(function(){
 });
 
 $(document).ready(function(){
-	$('select#roadName').change(function(){
-		$('#restName').load("getAPIRestName", {'roadName' : $("select#roadName").val()},function(){
+	$('select#roadRouteNm').change(function(){
+		$('#entrpsNm').load("getAPIRestName", {'roadName' : $("select#roadRouteNm").val()},function(){
 			$(this).show();
 		});
 		return false;
@@ -28,14 +28,16 @@ $(document).ready(function(){
 </head>
 <body>
 <div>
-<form action="">
-<select name="roadKind" id="roadKind">
+<form action="getAPIList">
+<select name="roadKnd" id="roadKnd">
+<option value="">-도로종류-</option>
 	<c:forEach var="kind" items="${APIRoadKind}">
 		<option value="<c:out value="${kind}"/>"><c:out value="${kind}"/></option>
 	</c:forEach>	
 </select>
-<select id="roadName" style="display:none"></select>
-<select id="restName" style="display:none"></select>
+<select id="roadRouteNm" name="roadRouteNm" style="display:none"></select>
+<select id="entrpsNm" name="entrpsNm" style="display:none"></select>
+<input type="submit" value="검색">
 </form>
 </div>
 

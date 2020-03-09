@@ -31,5 +31,11 @@ public class FrontServiceImpl implements FrontService {
 		// TODO Auto-generated method stub
 		return frontDAO.APIRestName(vo);
 	}
+
+	@Override
+	public ArrayList<FrontVO> APIList(FrontVO vo) throws IOException, ParseException {
+		// TODO Auto-generated method stub
+		return frontDAO.APIList(vo);
+	}
 	
 }

@@ -14,4 +14,6 @@ public interface FrontService {
 	
 	public ArrayList<String> APIRestName(FrontVO vo) throws IOException, ParseException;
 	
+	public ArrayList<FrontVO> APIList(FrontVO vo) throws IOException, ParseException;
+	
 }

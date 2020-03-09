@@ -55,4 +55,13 @@ public class FrontController {
 		
 	}
 	
+	@RequestMapping(value = "/getAPIList", method = RequestMethod.GET)
+	public String APIList(FrontVO vo, Model model) throws IOException, ParseException {
+		
+		model.addAttribute("APIList",frontService.APIList(vo));
+		
+		return "List";
+		
+	}
+	
 }

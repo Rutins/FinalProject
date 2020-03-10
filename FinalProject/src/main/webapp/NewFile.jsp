@@ -8,12 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <script type="text/javascript">
-function APIRoad(){
-	$('#notice').load("ajaxnotice.do", {'noticeid' : $("#noticeid").val()});
-}
-</script>
- -->
+
 </head>
 <body>
 <form action="getAPIRoadKind">

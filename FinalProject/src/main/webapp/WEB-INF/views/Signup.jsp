@@ -40,6 +40,27 @@
 			return false;
 		}
 	}
+	
+	$("#signup").submit( function(event){
+
+		event.preventDefault();
+		// serialize는 form의 <input> 요소들의 name이 배열형태로 그 값이 인코딩되어 URL query string으로 하는 메서드
+		let queryString = $(this).serialize();
+		$.ajax({
+			url: "/controller/getSignup",
+			type: "GET",
+			dataType: "json",
+			data: queryString,
+			success: function(result){
+				if(result==100){
+					alert('가입되셨습니다.');
+					window.location.href = "/controller/";
+				}else{
+					alert('가입에 실패하셨습니다.\\n다시 시도해주세요.');
+				}
+			}
+        })
+	});
 </script>
 <title>GAZUA 휴게소</title>
 <!-- Bootstrap core CSS -->
@@ -130,7 +151,7 @@
       		</div>
   		</form>
       <div id="get">
-      	<form action="" name="join" onsubmit="return JoinNullCheck()">
+      	<form action="" name="join" id="signup"onsubmit="return JoinNullCheck()">
 			<div id="signup" style="width: 400px; margin-left: 90%">
 				<h1>회원 가입</h1>
 				<br><br>

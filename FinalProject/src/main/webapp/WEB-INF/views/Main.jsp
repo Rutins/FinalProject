@@ -23,7 +23,7 @@
 			return false;
 		}
 	}
-/* 	%%%%%%%%%%%%%%%%%%%%%%%%%수정 %%%%%%%%%%%%%%%%%%%%%%%%% */
+/* 	%%%%%%%%%%%%%%%%%%%%%%%%%수정%%%%%%%%%%%%%%%%%%%%%%%%% */
 	function button1_click(){
 		alert("메시지가 성공적으로 전송되었습니다");
 	}
@@ -96,8 +96,8 @@
       		<div class="col-md-8 mb-5">
 				<!-- 로그인 안할 시 나오는 부분 -->
 				<section class="main_login_section">
-					<input class="main_login" type="text" name="main_loginid" placeholder="아이디" onfocus="this.value=''; return true;"><br>
-					<input class="main_login" type="password" name="main_loginpw" placeholder="비밀번호" onfocus="this.value=''; return true;"><br>
+					<input class="main_login" type="text" name="id" placeholder="아이디" onfocus="this.value=''; return true;"><br>
+					<input class="main_login" type="password" name="pw" placeholder="비밀번호" onfocus="this.value=''; return true;"><br>
 					<input type="submit" value="로그인" class="btn btn-primary btn-lg main_logon_btn">
 					<a href="Signup">
 						<input type="button" value="회원가입" class="btn btn-primary btn-lg main_logon_btn2" id="signup_get">

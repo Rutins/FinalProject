@@ -7,8 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kgitbank.client.service.ClientServiceImpl;
 import com.kgitbank.client.vodao.ClientVO;
@@ -28,23 +30,26 @@ public class ClientController {
 		}
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/getIDCheck", method = RequestMethod.GET)
-	public String IDCheck(ClientVO vo, Model model) throws SQLException {
-		
+	public int IDCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
+		req.getParameter("id");
 		if(clientService.IdDoubleCheck(vo)) {
-			return "home";
+			return 100;
 		}else {
-			return "home";
+			return 101;
 		}
 	}
 	
+	@ResponseBody
 	@RequestMapping(value = "/getNickNameCheck", method = RequestMethod.GET)
-	public String NickNameCheck(ClientVO vo, Model model) throws SQLException {
-		
+	public int NickNameCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
+		System.out.println(vo.getNickname());
+		System.out.println(req.getParameter("nickname"));
 		if(clientService.NicknameDoubleCheck(vo)) {
-			return "home";
+			return 100;
 		}else {
-			return "home";
+			return 101;
 		}
 	}
 	
@@ -107,5 +112,18 @@ public class ClientController {
 		
 		return "home";
 	}
+	
+	@RequestMapping(value = "/NickName", method = RequestMethod.GET)
+	public String NickName(ClientVO vo, Model model) throws SQLException {
+		
+		return "NickName";
+	}
+	
+	@RequestMapping(value = "/IdCheck", method = RequestMethod.GET)
+	public String IdCheck(ClientVO vo, Model model) throws SQLException {
+		
+		return "IdCheck";
+	}
+
 
 }

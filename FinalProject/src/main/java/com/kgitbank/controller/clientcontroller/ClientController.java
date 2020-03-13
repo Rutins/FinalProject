@@ -41,9 +41,9 @@ public class ClientController {
 		}
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping(value = "/getNickNameCheck", method = RequestMethod.GET)
-	public int NickNameCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
+	public @ResponseBody int NickNameCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
 		System.out.println(vo.getNickname());
 		System.out.println(req.getParameter("nickname"));
 		if(clientService.NicknameDoubleCheck(vo)) {

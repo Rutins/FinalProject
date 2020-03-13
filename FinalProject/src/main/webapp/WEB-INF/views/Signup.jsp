@@ -38,29 +38,15 @@
 		} else if(!document.join.join_mail.value){
 			document.join.join_mail.focus();
 			return false;
-		}
+		} 
 	}
-	
+$(document).ready(function(){
 	$("#signup").submit( function(event){
-
-		event.preventDefault();
+		
 		// serialize는 form의 <input> 요소들의 name이 배열형태로 그 값이 인코딩되어 URL query string으로 하는 메서드
-		let queryString = $(this).serialize();
-		$.ajax({
-			url: "/controller/getSignup",
-			type: "GET",
-			dataType: "json",
-			data: queryString,
-			success: function(result){
-				if(result==100){
-					alert('가입되셨습니다.');
-					window.location.href = "/controller/";
-				}else{
-					alert('가입에 실패하셨습니다.\\n다시 시도해주세요.');
-				}
-			}
-        })
-	});
+		
+	})
+});
 </script>
 <title>GAZUA 휴게소</title>
 <!-- Bootstrap core CSS -->
@@ -117,7 +103,7 @@
   <div class="container">
 
     <div class="row">
-  		<form action="" name="login" onsubmit="return LoginNullCheck()">
+  		<form action="getLogin" name="login" onsubmit="return LoginNullCheck()">
   			<!-- 로그인 부분, onfocus 부분은 input text란 클릭시 내용 지우기 -->  
       		<div class="col-md-8 mb-5">
 				<!-- 로그인 안할 시 나오는 부분 -->
@@ -151,18 +137,18 @@
       		</div>
   		</form>
       <div id="get">
-      	<form action="" name="join" id="signup"onsubmit="return JoinNullCheck()">
+      	<form action="getSignup" name="join" id="signup" onsubmit="return JoinNullCheck()">
 			<div id="signup" style="width: 400px; margin-left: 90%">
 				<h1>회원 가입</h1>
 				<br><br>
 				이름<br>
 				<input type="text" name="name"><br><br>
 				닉네임<br>
-				<input type="text" name="nickname" readonly>&nbsp&nbsp
+				<input type="text" name="nickname" id="nickname" readonly>&nbsp&nbsp
 				<input type="button" value="중복 확인" class="btn btn-primary btn-lg" onclick="window.open('NickName', '_blank', 'width=500px, height=300px');">
 				<br><br>
 				아이디<br>
-				<input type="text" name="id" readonly>&nbsp&nbsp
+				<input type="text" name="id" id="id" readonly>&nbsp&nbsp
 				<input type="button" value="중복 확인" class="btn btn-primary btn-lg" onclick="window.open('IdCheck', '_blank', 'width=500px, height=300px');">
 				<br><br>
 				비밀번호<br>

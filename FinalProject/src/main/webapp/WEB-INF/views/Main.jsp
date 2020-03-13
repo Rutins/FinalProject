@@ -91,7 +91,7 @@
   <div class="container">
 
     <div class="row">
-  		<form action="" name="login" onsubmit="return LoginNullCheck()">
+  		<form action="getLogin" name="login" onsubmit="return LoginNullCheck()">
   			<!-- 로그인 부분, onfocus 부분은 input text란 클릭시 내용 지우기 -->  
       		<div class="col-md-8 mb-5">
 				<!-- 로그인 안할 시 나오는 부분 -->

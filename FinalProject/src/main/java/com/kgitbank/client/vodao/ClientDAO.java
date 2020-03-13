@@ -38,7 +38,7 @@ public class ClientDAO {
 	}
 	
 	public boolean NicknameDoubleCheck(ClientVO vo) throws SQLException {
-		String sql = "select id from clientTable where nickname = ?";
+		String sql = "select nickname from clientTable where nickname = ?";
 		st = con.prepareStatement(sql);
 		st.setString(1, vo.getNickname());
 		rs = st.executeQuery();
@@ -74,7 +74,7 @@ public class ClientDAO {
 	}
 	
 	public boolean Login(ClientVO vo) throws SQLException {
-		String sql = "select id from clientTable where id = ? and pw = ?";
+		String sql = "select id,pw from clientTable where id = ? and pw = ?";
 		st = con.prepareStatement(sql);
 		st.setString(1, vo.getId());
 		st.setString(2, vo.getPw());

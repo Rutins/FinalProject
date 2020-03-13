@@ -5,36 +5,41 @@
 
 <html>
 <head>
-	
+<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript">
-$("#roadKnd").on(click, function(event){
-	event.preventDefault();
-	let FrontVO = $(this).serialize();
-	$.ajax({
-		url: "/controller/getAPIRoadName",
-		type: "POST",
-		dataType: "json",
-		data: FrontVO,
-		success: function(aa){
-			
-		}
+$(document).ready(function(){
+	$('select#roadKnd').change(function(){
+		$('#roadRouteNm').load("getAPIRoadName", {'roadKind' : $("select#roadKnd").val()},function(){
+			$(this).show();
+		});
+		return false;
+	});
+});
 
-	})
-
+$(document).ready(function(){
+	$('select#roadRouteNm').change(function(){
+		$('#entrpsNm').load("getAPIRestName", {'roadName' : $("select#roadRouteNm").val()},function(){
+			$(this).show();
+		});
+		return false;
+	});
 });
 </script>
 </head>
 <body>
-<select name="roadKnd">
+<div>
+<form action="getAPIList">
+<select name="roadKnd" id="roadKnd">
+<option value="">-도로종류-</option>
 	<c:forEach var="kind" items="${APIRoadKind}">
-		<option id="roadKnd"><c:out value="${kind}"/></option>
+		<option value="<c:out value="${kind}"/>"><c:out value="${kind}"/></option>
 	</c:forEach>	
 </select>
-<%-- 
-<select>
-	<c:forEach var="kind" items="${APIRoadKind}">
-		<option id="road"><c:out value="${kind}"/></option>
-	</c:forEach>	
-</select> --%>
+<select id="roadRouteNm" name="roadRouteNm" style="display:none"></select>
+<select id="entrpsNm" name="entrpsNm" style="display:none"></select>
+<input type="submit" value="검색">
+</form>
+</div>
+
 </body>
 </html>

@@ -21,19 +21,19 @@ public class ClientController {
 	private ClientServiceImpl clientService;
 	
 	@RequestMapping(value = "/getSignup", method = RequestMethod.GET)
-	public String Signup(ClientVO vo, Model model) throws SQLException {
+	public @ResponseBody int Signup(ClientVO vo, Model model) throws SQLException {
 		
 		if(clientService.Signup(vo)) {
-			return "home";
+			return 100;
 		}else {
-			return "home";
+			return 101;
 		}
 	}
 	
-	@ResponseBody
+	
 	@RequestMapping(value = "/getIDCheck", method = RequestMethod.GET)
-	public int IDCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
-		req.getParameter("id");
+	public @ResponseBody int IDCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
+		
 		if(clientService.IdDoubleCheck(vo)) {
 			return 100;
 		}else {
@@ -44,8 +44,7 @@ public class ClientController {
 	
 	@RequestMapping(value = "/getNickNameCheck", method = RequestMethod.GET)
 	public @ResponseBody int NickNameCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
-		System.out.println(vo.getNickname());
-		System.out.println(req.getParameter("nickname"));
+		
 		if(clientService.NicknameDoubleCheck(vo)) {
 			return 100;
 		}else {
@@ -54,12 +53,12 @@ public class ClientController {
 	}
 	
 	@RequestMapping(value = "/getLogin", method = RequestMethod.GET)
-	public String Login(ClientVO vo, Model model,HttpServletRequest req) throws SQLException {
+	public String Login(ClientVO vo, Model model) throws SQLException {
 		
 		if(clientService.Login(vo)) {
-			return "home";
+			return "Main";
 		}else {
-			return "home";
+			return "Main";
 		}
 	}
 	

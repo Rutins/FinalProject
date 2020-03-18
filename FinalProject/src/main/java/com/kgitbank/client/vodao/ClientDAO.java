@@ -86,7 +86,7 @@ public class ClientDAO {
 			pw = rs.getString("pw");
 		}
 		
-		if(id.equals(vo.getId()) && pw.equals(vo.getPw())) {
+		if(id!=null && pw!=null) {
 			return true;
 		}else {
 			return false;
@@ -206,6 +206,25 @@ public class ClientDAO {
 		
 	}
 	
-	
+	public ClientVO Session(ClientVO vo) throws SQLException {
+		String sql = "select * from clientTable where id = ? and pw = ?";
+		st = con.prepareStatement(sql);
+		st.setString(1, vo.getId());
+		st.setString(2, vo.getPw());
+		
+		rs = st.executeQuery();
+		ClientVO vo1 = new ClientVO();
+		while(rs.next()) {
+			vo1.setId(rs.getString("id"));
+			vo1.setMail(rs.getString("mail"));
+			vo1.setName(rs.getString("name"));
+			vo1.setNickname(rs.getString("nickname"));
+			vo1.setPw(rs.getString("pw"));
+			vo1.setTel(rs.getString("tel"));
+			
+		}
+		
+		return vo1;
+	}
 	
 }

@@ -1,6 +1,8 @@
 package com.kgitbank.controller.frontcontroller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kgitbank.front.service.FrontServiceImpl;
 import com.kgitbank.front.vodao.FrontVO;
@@ -30,18 +33,12 @@ public class FrontController {
 		return "Main";
 	}
 	
-	@RequestMapping(value = "/Signup", method = RequestMethod.GET)
-	public String Signup(FrontVO vo, Model model) throws IOException, ParseException {
-		
-		return "Signup";
-	}
-	
 	@RequestMapping(value = "/getAPIRoadKind", method = RequestMethod.GET)
 	public String APIRoadKind(FrontVO vo, Model model) throws IOException, ParseException {
 		
 		model.addAttribute("APIRoadKind", frontService.APIRoadKind(vo));
 		
-		return "home";
+		return "Rest";
 	}
 	
 	
@@ -68,12 +65,90 @@ public class FrontController {
 	}
 	
 	@RequestMapping(value = "/getAPIList", method = RequestMethod.GET)
-	public String APIList(FrontVO vo, Model model) throws IOException, ParseException {
+	public @ResponseBody ArrayList<FrontVO> APIList(FrontVO vo, Model model) throws IOException, ParseException {
 		
-		model.addAttribute("APIList",frontService.APIList(vo));
-		
-		return "List";
+		return frontService.APIList(vo);
 		
 	}
 	
+	@RequestMapping(value = "/QAmail", method = RequestMethod.GET)
+	public String QA(FrontVO vo, Model model) throws ClassNotFoundException, SQLException {
+		
+		if(frontService.QA(vo)) {
+			model.addAttribute("QAmail","QA");
+			return "Main";
+		}else {
+			model.addAttribute("QAerror","QA");
+			return "Main";
+		}
+		
+	}
+	
+	@RequestMapping(value="/Signup")
+	public String Signup() {
+		return "Signup";
+	}
+
+	@RequestMapping(value="/NickName")
+	public String NickName() {
+		return "NickName";
+	}
+	
+	@RequestMapping(value="/IdCheck")
+	public String IdCheck() {
+		return "IdCheck";
+	}
+	
+	@RequestMapping(value="/Search")
+	public String Search() {
+		return "Search";
+	}
+	
+	@RequestMapping(value="/Introduction")
+	public String Introduction() {
+		return "Introduction";
+	}
+	
+	@RequestMapping(value="/QA")
+	public String QA() {
+		return "QA";
+	}
+	
+	@RequestMapping(value="/Confirm")
+	public String Confirm() {
+		return "Confirm";
+	}
+	
+	@RequestMapping(value="/Mypage")
+	public String Mypage() {
+		return "Mypage";
+	}
+	
+	@RequestMapping(value="/Change")
+	public String Change() {
+		return "Change";
+	}
+	
+	@RequestMapping(value="/End")
+	public String End() {
+		return "End";
+	}
+
+	@RequestMapping(value="/Rest2")
+	public String Rest2() {
+		
+		return "Rest2";
+	}
+	
+	@RequestMapping(value="/Board_List")
+	public String Board_List() {
+		
+		return "Board_List";
+	}
+	
+	@RequestMapping(value="/Board_Write")
+	public String Board_Write() {
+		
+		return "Board_Write";
+	}
 }

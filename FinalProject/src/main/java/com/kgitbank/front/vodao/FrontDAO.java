@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -15,8 +18,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Repository;
+
+import com.kgitbank.dbconn.Dbconn;
 @Repository
 public class FrontDAO {
+	private Connection con;
+	private PreparedStatement st;
+	
 	public ArrayList<String> APIRoadKind(FrontVO vo) throws IOException, ParseException {
 		String skey = "eZ%2F7pGiWqqvhlkGmf57JYKGih5zv%2FZImo%2FCS%2F6bJy3oE4WFYHiLlXBw2nctMQ4nPRxbH9d0sCXtci%2Bpv4nC0dg%3D%3D";
 		StringBuilder urlBuilder = new StringBuilder("http://api.data.go.kr/openapi/restarea-std?serviceKey="+skey); /*URL*/
@@ -61,8 +69,7 @@ public class FrontDAO {
 	    HashSet<String> hs = new HashSet<String>(ar1);
 		
 		ArrayList<String> ar2 = new ArrayList<String>(hs);
-		
-		System.out.println(ar2);
+	
 		Collections.sort(ar2);
 	    return ar2;
 	}
@@ -251,5 +258,22 @@ public class FrontDAO {
 		}
 	    		
 	    return ar1;
+	}
+	
+	public boolean QA(FrontVO vo) throws SQLException, ClassNotFoundException {
+		con = new Dbconn().getConnection();
+		String sql = "insert into QA values(?,?,?)";
+		st = con.prepareStatement(sql);
+		st.setString(1, vo.getName());
+		st.setString(2, vo.getEmail());
+		st.setString(3, vo.getText());
+		int aa = st.executeUpdate();
+		
+		if(aa==1) {
+			return true;
+		}else {
+			return false;
+		}
+		
 	}
 }

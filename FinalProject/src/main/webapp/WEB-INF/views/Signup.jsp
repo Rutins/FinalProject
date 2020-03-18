@@ -1,52 +1,51 @@
+<%@page import="com.kgitbank.client.vodao.ClientVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+<%
+ClientVO login = null;
+login=(ClientVO)session.getAttribute("loginfo");
+
+%>
 <head>
 <script type="text/javascript">
 	function LoginNullCheck(){
-		if(!document.login.main_loginid.value){
+		if(!document.login.id.value){
 			alert("아이디를 입력해주세요.");
-			document.login.main_loginid.focus();
+			document.login.id.focus();
 			return false;
-		} else if(!document.login.main_loginpw.value){
+		} else if(!document.login.pw.value){
 			alert("비밀번호를 입력해주세요.");
-			document.login.main_loginpw.focus();
+			document.login.pw.focus();
 			return false;
 		}
 	}
 	
 	function JoinNullCheck(){
-		if(!document.join.join_name.value){
+		if(!document.join.name.value){
 			alert("이름을 입력해주세요.");
-			document.join.join_name.focus();
+			document.join.name.focus();
 			return false;
-		} else if(!document.join.join_nick.value){
-			document.join.join_nick.focus();
+		} else if(!document.join.nickname.value){
+			document.join.nickname.focus();
 			return false;
-		} else if(!document.join.join_id.value){
-			document.join.join_id.focus();
+		} else if(!document.join.id.value){
+			document.join.id.focus();
 			return false;
-		} else if(!document.join.join_pw){
-			document.join.join_pw.focus();
+		} else if(!document.join.pw.value){
+			document.join.pw.focus();
 			return false;
-		} else if(!document.join.join_tel.value){
-			document.join.join_tel.focus();
+		} else if(!document.join.tel.value){
+			document.join.tel.focus();
 			return false;
-		} else if(!document.join.join_mail.value){
-			document.join.join_mail.focus();
+		} else if(!document.join.mail.value){
+			document.join.mail.focus();
 			return false;
-		} 
+		}
 	}
-$(document).ready(function(){
-	$("#signup").submit( function(event){
-		
-		// serialize는 form의 <input> 요소들의 name이 배열형태로 그 값이 인코딩되어 URL query string으로 하는 메서드
-		
-	})
-});
 </script>
 <title>GAZUA 휴게소</title>
 <!-- Bootstrap core CSS -->
@@ -59,28 +58,28 @@ $(document).ready(function(){
   <!-- Navigation -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="/controller">GAZUA 휴게소</a>
+      <a class="navbar-brand" href="/">GAZUA 휴게소</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarResponsive">
         <ul class="navbar-nav ml-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/controller">홈
+            <a class="nav-link" href="/">홈
               <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">사이트 소개</a>
+            <a class="nav-link" href="Introduction">사이트 소개</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">휴게소 정보</a>
+            <a class="nav-link" href="getAPIRoadKind">휴게소 정보</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">게시판</a>
+            <a class="nav-link" href="Board_List">게시판</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">문의 사항</a>
+            <a class="nav-link" href="QA">문의 사항</a>
           </li>
         </ul>
       </div>
@@ -106,26 +105,30 @@ $(document).ready(function(){
   		<form action="getLogin" name="login" onsubmit="return LoginNullCheck()">
   			<!-- 로그인 부분, onfocus 부분은 input text란 클릭시 내용 지우기 -->  
       		<div class="col-md-8 mb-5">
+			<%if(session.getAttribute("loginfo")==null){%>
 				<!-- 로그인 안할 시 나오는 부분 -->
 				<section class="main_login_section">
-					<input class="main_login" type="text" name="main_loginid" placeholder="아이디" onfocus="this.value=''; return true;"><br>
-					<input class="main_login" type="password" name="main_loginpw" placeholder="비밀번호" onfocus="this.value=''; return true;"><br>
+					<input class="main_login" type="text" name="id" placeholder="아이디" onfocus="this.value=''; return true;"><br>
+					<input class="main_login" type="password" name="pw" placeholder="비밀번호" onfocus="this.value=''; return true;"><br>
 					<input type="submit" value="로그인" class="btn btn-primary btn-lg main_logon_btn">
 					<a href="Signup">
 						<input type="button" value="회원가입" class="btn btn-primary btn-lg main_logon_btn2">
 					</a><br><br>
-					<a href="Search.jsp" class="main_login_a">아이디 / 비밀번호 찾기</a>
+					<a href="Search" class="main_login_a">아이디 / 비밀번호 찾기</a>
 				</section>
+			<%}
+			else {%>	
 				<!-- 로그인 성공시 나오는 부분 --> 
-				<!-- <section class="main_login_section">	
-					<h2 class="main_login_a">@@@ 님 환영합니다 !</h2>
+				 <section class="main_login_section">	
+					<h2 class="main_login_a"><%=login.getNickname()%> 님 환영합니다 !</h2>
 					<br><br><br>
-					로그아웃 할때 받을 do
-					<a href=""><input type="button" value="로그아웃" class="btn btn-primary btn-lg"></a>
-					<a href="Mypage.jsp">
+					<!-- 로그아웃 할때 받을 do -->
+					<a href="getLogout"><input type="button" value="로그아웃" class="btn btn-primary btn-lg"></a>
+					<a href="Confirm">
 						<input type="button" value="마이 페이지" class="btn btn-primary btn-lg main_logon_btn2">
 					</a>
-				</section> -->	
+				</section>
+			<%} %>
 				<section class="main_login_section main_user"> 
 					<!-- ?에는 방문자수 -->
 					<span class="main_span">오늘 ?명&nbsp&nbsp&nbsp&nbsp전체 ?명</span><br><br>
@@ -137,18 +140,18 @@ $(document).ready(function(){
       		</div>
   		</form>
       <div id="get">
-      	<form action="getSignup" name="join" id="signup" onsubmit="return JoinNullCheck()">
+      	<form action="" name="join" onsubmit="return JoinNullCheck()">
 			<div id="signup" style="width: 400px; margin-left: 90%">
 				<h1>회원 가입</h1>
 				<br><br>
 				이름<br>
 				<input type="text" name="name"><br><br>
 				닉네임<br>
-				<input type="text" name="nickname" id="nickname" readonly>&nbsp&nbsp
+				<input type="text" name="nickname" readonly>&nbsp&nbsp
 				<input type="button" value="중복 확인" class="btn btn-primary btn-lg" onclick="window.open('NickName', '_blank', 'width=500px, height=300px');">
 				<br><br>
 				아이디<br>
-				<input type="text" name="id" id="id" readonly>&nbsp&nbsp
+				<input type="text" name="id" readonly>&nbsp&nbsp
 				<input type="button" value="중복 확인" class="btn btn-primary btn-lg" onclick="window.open('IdCheck', '_blank', 'width=500px, height=300px');">
 				<br><br>
 				비밀번호<br>

@@ -74,4 +74,10 @@ public class ClientServiceImpl implements ClientService {
 		return clientDAO.UpdatePw(vo);
 	}
 
+	@Override
+	public ClientVO Session(ClientVO vo) throws SQLException {
+		// TODO Auto-generated method stub
+		return clientDAO.Session(vo);
+	}
+
 }

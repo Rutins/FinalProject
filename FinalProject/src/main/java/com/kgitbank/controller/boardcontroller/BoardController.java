@@ -19,13 +19,14 @@ public class BoardController {
 	@Resource(name="boardService")
 	private BoardServiceImpl boardService;
 	
-	@RequestMapping(value = "/Board_Write", method = RequestMethod.GET)
+	@RequestMapping(value = "/getBoard_Write", method = RequestMethod.GET)
 	public String BoardWrite(BoardVO vo, Model model) throws SQLException {
 		
 		if(boardService.BoardWrite(vo)) {
-			return "home";
+			return "Main";
 		}else {
-			return "home";
+			model.addAttribute("error", "error");
+			return "Board_Write";
 		}
 	}
 	
@@ -33,9 +34,9 @@ public class BoardController {
 	public String BoardDelete(BoardVO vo, Model model) throws SQLException {
 		
 		if(boardService.BoardDelete(vo)) {
-			return "home";
+			return "Main";
 		}else {
-			return "home";
+			return "Main";
 		}
 	}
 	
@@ -43,9 +44,9 @@ public class BoardController {
 	public String BoardUpdate(BoardVO vo, Model model) throws SQLException {
 		
 		if(boardService.BoardUpdate(vo)) {
-			return "home";
+			return "Main";
 		}else {
-			return "home";
+			return "Main";
 		}
 	}
 	

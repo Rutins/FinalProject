@@ -1,33 +1,93 @@
+<%@page import="com.kgitbank.client.vodao.ClientVO"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kgitbank.front.vodao.FrontVO"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
+ 
 <!DOCTYPE html>
 <html lang="en">
+<%
+ClientVO login = null;
+login=(ClientVO)session.getAttribute("loginfo");
+
+%>
+<%
+	if(request.getAttribute("loginerror")!=null){
+		out.print("<script>alert('아이디와 비밀번호가 일치하지 않습니다.')</script>");
+	}
+	
+	if(request.getAttribute("QAmail")!=null){
+		out.print("<script>alert('문의 답변은 메일로 전송됩니다.')</script>");
+	}else if(request.getAttribute("QAerror")!=null){
+		out.print("<script>alert('문의작성에 실패했습니다. 다시 시도해주세요.')</script>");
+	}
+%>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
+ <script src="<c:url value="/resources/vendor/jquery/jquery.min.js" />"></script>
+  <script src="<c:url value="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js" />"></script>
 <script type="text/javascript">
 //로그인 Null 체크
 	function LoginNullCheck(){
-		if(!document.login.main_loginid.value){
+		if(!document.login.id.value){
 			alert("아이디를 입력해주세요.");
-			document.login.main_loginid.focus();
+			document.login.id.focus();
 			return false;
-		} else if(!document.login.main_loginpw.value){
+		} else if(!document.login.pw.value){
 			alert("비밀번호를 입력해주세요.");
-			document.login.main_loginpw.focus();
+			document.login.pw.focus();
 			return false;
 		}
 	}
-/* 	%%%%%%%%%%%%%%%%%%%%%%%%%수정%%%%%%%%%%%%%%%%%%%%%%%%% */
+/* 	%%%%%%%%%%%%%%%%%%%%%%%%%수정 %%%%%%%%%%%%%%%%%%%%%%%%% */
 	function button1_click(){
 		alert("메시지가 성공적으로 전송되었습니다");
 	}
-
+	
+/* 	function ArrayList(){
+	    this.array = new Array();
+	    this.add = function(obj){
+	        this.array[this.array.length] = obj;
+	    };
+	    this.iterator = function (){
+	        return new Iterator(this);
+	    };
+	    this.length = function (){
+	        return this.array.length;
+	    };
+	    this.get = function (index){
+	        return this.array[index];
+	    };
+	    this.addAll = function (obj){
+	        if (obj instanceof Array){
+	            for (var i=0;i<obj.length;i++){
+	                this.add(obj[i]);
+	            }
+	        } else if (obj instanceof ArrayList){
+	            for (var i=0;i<obj.length();i++){
+	                this.add(obj.get(i));
+	            }
+	        }
+	    };
+	}
+	 
+	function Iterator (arrayList){
+	    this.arrayList;
+	    this.index = 0;
+	    this.hasNext = function (){
+	        return this.index < this.arrayList.length();
+	    };
+	    this.next = function() {
+	        return this.arrayList.get(index++);
+	    };
+	}  */
 
 </script>
 
@@ -36,9 +96,9 @@
 <!-- Bootstrap core CSS -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/vendor/bootstrap/css/bootstrap.min.css">
 
-
 <!-- Custom styles for this template -->
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/business-frontpage.css">
+
 
 </head>
 
@@ -59,16 +119,16 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">사이트 소개</a>
+            <a class="nav-link" href="Introduction">사이트 소개</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">휴게소 정보</a>
+            <a class="nav-link" href="getAPIRoadKind">휴게소 정보</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">게시판</a>
+            <a class="nav-link" href="Board_List">게시판</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">문의 사항</a>
+            <a class="nav-link" href="QA">문의 사항</a>
           </li>
         </ul>
       </div>
@@ -94,26 +154,30 @@
   		<form action="getLogin" name="login" onsubmit="return LoginNullCheck()">
   			<!-- 로그인 부분, onfocus 부분은 input text란 클릭시 내용 지우기 -->  
       		<div class="col-md-8 mb-5">
+			<%if(session.getAttribute("loginfo")==null){%>
 				<!-- 로그인 안할 시 나오는 부분 -->
 				<section class="main_login_section">
 					<input class="main_login" type="text" name="id" placeholder="아이디" onfocus="this.value=''; return true;"><br>
 					<input class="main_login" type="password" name="pw" placeholder="비밀번호" onfocus="this.value=''; return true;"><br>
 					<input type="submit" value="로그인" class="btn btn-primary btn-lg main_logon_btn">
 					<a href="Signup">
-						<input type="button" value="회원가입" class="btn btn-primary btn-lg main_logon_btn2" id="signup_get">
+						<input type="button" value="회원가입" class="btn btn-primary btn-lg main_logon_btn2">
 					</a><br><br>
-					<a href="Search.jsp" class="main_login_a">아이디 / 비밀번호 찾기</a>
+					<a href="Search" class="main_login_a">아이디 / 비밀번호 찾기</a>
 				</section>
+			<%}
+			else {%>	
 				<!-- 로그인 성공시 나오는 부분 --> 
-				<!-- <section class="main_login_section">	
-					<h2 class="main_login_a">@@@ 님 환영합니다 !</h2>
+				 <section class="main_login_section">	
+					<h2 class="main_login_a"><%=login.getNickname()%> 님 환영합니다 !</h2>
 					<br><br><br>
-					로그아웃 할때 받을 do
-					<a href=""><input type="button" value="로그아웃" class="btn btn-primary btn-lg"></a>
-					<a href="Mypage.jsp">
+					<!-- 로그아웃 할때 받을 do -->
+					<a href="getLogout"><input type="button" value="로그아웃" class="btn btn-primary btn-lg"></a>
+					<a href="Confirm">
 						<input type="button" value="마이 페이지" class="btn btn-primary btn-lg main_logon_btn2">
 					</a>
-				</section> -->	
+				</section>
+			<%} %>
 				<section class="main_login_section main_user"> 
 					<!-- ?에는 방문자수 -->
 					<span class="main_span">오늘 ?명&nbsp&nbsp&nbsp&nbsp전체 ?명</span><br><br>
@@ -124,15 +188,26 @@
 				</section>	
       		</div>
   		</form>
-      <div id="get">
-      	<div id="map" style="width:750px; height:700px;"></div>
-<p>
-    <button onclick="hideMarkers()">마커 감추기</button>
-    <button onclick="showMarkers()">마커 보이기</button>
+ 
+
+<div class="main_right">
+      	<div id="map" style="width:730px; height:700px;"></div><br>
+<p align="center">
+    <button onclick="hideMarkers()">휴게소 감추기</button>
+    <button onclick="showMarkers()">휴게소 보이기</button>
 </p> 
 <!-- <em>클릭한 위치에 마커가 표시됩니다!</em> -->
     
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=49010dfcae926e4fa1ecd465c8810d83"></script>
+<%-- 
+<%
+String [] ar1=(String[])request.getAttribute("entrpsNmList");
+String entrpsNm1="";
+for(int i=0; i<ar1.length; i++){
+	entrpsNm1=ar1[i];
+}
+%>
+ --%>
 <script>
 var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
     mapOption = { 
@@ -146,9 +221,70 @@ var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 // 지도에 표시된 마커 객체를 가지고 있을 배열입니다
 var markers = [];
 
-// 마커 하나를 지도위에 표시합니다 
-addMarker('만남의 광장', new kakao.maps.LatLng(37.460612, 127.041870));
-addMarker('죽전휴게소', new kakao.maps.LatLng(37.332651, 127.104165));
+// 마커를 지도위에 표시합니다 
+/* var ar1 = MapMarker.entrpsNm;
+	addMarker(ar1[i], new kakao.maps.LatLng(37.460612, 127.041870)); */
+	
+	
+	/* var json = JSON.parse('${jsonList}');
+	 console.log(json);
+ */
+ 
+/*  var json = JSON.parse('${list}');
+	
+ for (var i = 0; i < json.size(); i++) {
+		JSONObject rest = (JSONObject) json.get(i);
+		
+		var entrpsNm = (String) rest.get("entrpsNm");    
+        var latitude = (String) rest.get("latitude");    
+        var hardness = (String) rest.get("hardness");
+        
+        addMarker(entrpsNm, new kakao.maps.LatLng(latitude, hardness));
+ }
+  */
+ 
+ 
+	
+<%--  var arrayList = new Array('${ar1}');
+ 
+	var data=<%=ar1%>;
+	var list=data.list;
+	/* var listLen = json.size;	*/
+	var listLen =arrayList.length;
+		
+	var str = "";
+	
+	if(listLen >  0){
+		for(var a=0; a<listLen; a++){
+			addMarker(list[a].getEntrpsNm(), new kakao.maps.LatLng(ar1.get(i).getLatitude(), ar1.get(i).getHardness()));
+		}
+	}	 --%>
+	
+/* 	
+for(var i=0; i<ar1.size(); i++){
+	addMarker(ar1.get(i).getEntrpsNm(), new kakao.maps.LatLng(ar1.get(i).getLatitude(), ar1.get(i).getHardness()));
+} */
+
+/* String a=request.getAttribute("MAPRestName");
+System.out.println(a); *//* 
+addMarker('맛남의 광장', new kakao.maps.LatLng(37.460612, 127.041870));
+addMarker('죽전휴게소', new kakao.maps.LatLng(37.332651, 127.104165));  */
+
+<%-- addMarker(<%=entrpsNm1%>, new kakao.maps.LatLng(37.332651, 127.104165));  --%>
+<%-- <%
+String [] ar1=(String[])request.getAttribute("list");
+%>  --%>
+
+<% List<String> dd = (List<String>)request.getAttribute("test"); %>
+
+
+var list = ${list};
+var list2 = ${list2};
+var list3 = ${list3};
+
+for (var i = 0; i < list.length; i++) {
+	addMarker(list[i], new kakao.maps.LatLng(list2[i], list3[i]));
+}
 
 
 // 마커를 생성하고 지도위에 표시하는 함수입니다
@@ -184,9 +320,10 @@ function hideMarkers() {
     setMarkers(null);    
 }
 </script>
-      </div>
-    </div>
-  </div>
+
+</div>
+</div>
+</div>
   <!-- /.container -->
 
   <!-- Footer -->
@@ -210,7 +347,7 @@ function hideMarkers() {
 		
 		
 		<div class="footer_right">		
-		<form name="message" id="messageform">
+		<form name="message" id="messageform" action="QAmail">
 		
 		<div class="row1">
 			<div class="name">
@@ -241,10 +378,7 @@ function hideMarkers() {
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="<c:url value="/resources/vendor/jquery/jquery.min.js" />"></script>
-  <script src="<c:url value="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js" />"></script>
-
-
+ 
 </body>
 
 </html>

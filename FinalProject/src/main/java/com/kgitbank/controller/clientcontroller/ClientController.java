@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,12 @@ public class ClientController {
 	private ClientServiceImpl clientService;
 	
 	@RequestMapping(value = "/getSignup", method = RequestMethod.GET)
-	public @ResponseBody int Signup(ClientVO vo, Model model) throws SQLException {
+	public String Signup(ClientVO vo, Model model) throws SQLException {
 		
 		if(clientService.Signup(vo)) {
-			return 100;
+			return "Main";
 		}else {
-			return 101;
+			return "Signup";
 		}
 	}
 	
@@ -46,6 +47,10 @@ public class ClientController {
 	public @ResponseBody int NickNameCheck(@ModelAttribute ClientVO vo,HttpServletRequest req) throws SQLException {
 		
 		if(clientService.NicknameDoubleCheck(vo)) {
+			HttpSession session = req.getSession();
+			ClientVO vo1=(ClientVO)session.getAttribute("loginfo");
+			vo1.setNickname(vo.getNickname());
+			session.setAttribute("loginfo", vo1);
 			return 100;
 		}else {
 			return 101;
@@ -53,22 +58,27 @@ public class ClientController {
 	}
 	
 	@RequestMapping(value = "/getLogin", method = RequestMethod.GET)
-	public String Login(ClientVO vo, Model model) throws SQLException {
+	public String Login(ClientVO vo, Model model, HttpServletRequest req) throws SQLException {
 		
 		if(clientService.Login(vo)) {
+			HttpSession session = req.getSession();
+			session.setAttribute("loginfo", clientService.Session(vo));
 			return "Main";
 		}else {
+			model.addAttribute("loginerror", "error");
 			return "Main";
 		}
 	}
 	
 	@RequestMapping(value = "/getDelete", method = RequestMethod.GET)
-	public String Delete(ClientVO vo, Model model) throws SQLException {
+	public String Delete(ClientVO vo, Model model, HttpSession session) throws SQLException {
 		
 		if(clientService.Delete(vo)) {
-			return "home";
+			session.removeAttribute("loginfo");
+			return "Main";
 		}else {
-			return "home";
+			model.addAttribute("deleterror", "error");
+			return "Main";
 		}
 	}
 	
@@ -122,6 +132,13 @@ public class ClientController {
 	public String IdCheck(ClientVO vo, Model model) throws SQLException {
 		
 		return "IdCheck";
+	}
+	
+	@RequestMapping(value = "/getlogout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest req) throws SQLException {
+		HttpSession session = req.getSession();
+		session.removeAttribute("loginfo");
+		return "Main";
 	}
 
 

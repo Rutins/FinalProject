@@ -1,6 +1,7 @@
 package com.kgitbank.front.service;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.json.simple.parser.ParseException;
@@ -36,6 +37,12 @@ public class FrontServiceImpl implements FrontService {
 	public ArrayList<FrontVO> APIList(FrontVO vo) throws IOException, ParseException {
 		// TODO Auto-generated method stub
 		return frontDAO.APIList(vo);
+	}
+	
+	@Override
+	public boolean QA(FrontVO vo) throws ClassNotFoundException, SQLException {
+		// TODO Auto-generated method stub
+		return frontDAO.QA(vo);
 	}
 	
 }

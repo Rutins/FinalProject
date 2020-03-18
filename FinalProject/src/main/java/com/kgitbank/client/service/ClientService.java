@@ -25,4 +25,6 @@ public interface ClientService {
 	public boolean SearchPw(ClientVO vo) throws SQLException;
 	
 	public boolean UpdatePw(ClientVO vo) throws SQLException;
+	
+	public ClientVO Session(ClientVO vo) throws SQLException;
 }

@@ -8,54 +8,51 @@
 <script src="<c:url value="/resources/vendor/jquery/jquery.min.js" />"></script>
 <script src="<c:url value="/resources/vendor/bootstrap/js/bootstrap.bundle.min.js" />"></script>
 <script type="text/javascript">
-/* $("#doublecheck").submit( function(event){
-	event.preventDefault();
-	// serialize는 form의 <input> 요소들의 name이 배열형태로 그 값이 인코딩되어 URL query string으로 하는 메서드
-	let queryString = $(this).serialize();
-	$.ajax({
-		url: "/getIDCheck",
-		type: "GET",
-		dataType: "json",
-		data: queryString,
-		success: function(result){
-			if(result==100){
-				opener.document.getElementById("id").value=document.getElementById("id").value;
-				alert('사용가능한 이름입니다.');
-				self.opener = self;
-				self.close();
-			}else{
-				alert('이미 사용중인 이름입니다.');
-			}
+$(document).ready(function(){
+	$("#Nick_Check").keydown(function(event) {
+		if (event.keyCode == '13') {
+			$("#check").trigger("click");
 		}
-    })
-}); */
+	})
+});
+
 $(document).ready(function(){
     $("#check").on("click", function(){
-    	let queryString = $("#doublecheck").serialize();
-    	$.ajax({
-    		url: "/getIDCheck",
-    		type: "GET",
-    		dataType: "json",
-    		data: queryString,
-    		success: function(result){
-    			if(result==100){
-    				opener.document.getElementById("id").value=document.getElementById("id").value;
-    				alert('사용가능한 이름입니다.');
-    				self.opener = self;
-    				self.close();
-    			}else if(result==101){
-    				alert('이미 사용중인 이름입니다.')
-    			}
-    		}
-        })
+    	if(!document.getElementById("id").value){
+    		alert("닉네임을 입력해주세요.")
+    		document.getElementById("id").focus();
+    	}else{
+    		let queryString = $("#id").serialize();
+        	$.ajax({
+        		url: "/getIDCheck",
+        		type: "GET",
+        		dataType: "json",
+        		data: queryString,
+        		success: function(result){
+        			if(result==100){
+        				opener.document.getElementById("id").value=document.getElementById("id").value;
+        				alert('사용가능한 이름입니다.');
+        				self.opener = self;
+        				self.close();
+        			}else if(result==101){
+        				alert('이미 사용중인 이름입니다.')
+        			}
+        		}
+            })
+    	}
+    	
     })    
 });
+
 </script>
+<title>아이디 중복 확인</title>
 </head>
-<body>
-<form action="" id="doublecheck">
-<input type="text" name="id" id="id">
-<input type="button" value="중복확인" id="check">
-</form>
+<body align="center">
+	<div id="Id_Check" onsubmit="IdNullCheck()">
+		<h4>사용할 ID를 입력해주세요.</h1><br>
+		사용할 ID : <br><br>
+		<input type="text" id="id" name="id"><br><br>
+		<input type="button" id="check" value="확인">
+	</div>
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.kgitbank.front.service;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import org.json.simple.parser.ParseException;
@@ -16,4 +17,5 @@ public interface FrontService {
 	
 	public ArrayList<FrontVO> APIList(FrontVO vo) throws IOException, ParseException;
 	
+	public boolean QA(FrontVO vo) throws ClassNotFoundException, SQLException;
 }
